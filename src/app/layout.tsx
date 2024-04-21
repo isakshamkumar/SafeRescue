@@ -1,6 +1,8 @@
 import './globals.css'
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
 import { Inter } from 'next/font/google'
-
+import { ThemeProvider  } from '@mui/material/styles';
+import theme from './theme';
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
@@ -15,7 +17,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body suppressHydrationWarning className={inter.className}>
+        <AppRouterCacheProvider  options={{ key: 'css' }}>
+        <ThemeProvider theme={theme}>
+
+        {children}
+        </ThemeProvider>
+        </AppRouterCacheProvider>
+
+        </body>
     </html>
   )
 }
